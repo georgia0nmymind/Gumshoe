@@ -8,7 +8,7 @@ module.exports = {
     path: path.join(__dirname, "build"),
     filename: "bundle.js"
   },
-  mode: "production",
+  mode: "development",
   devServer: {
     // contentBase: "/src/",
     publicPath: "/build",

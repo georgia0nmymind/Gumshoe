@@ -1,33 +1,46 @@
 import React, { Component } from "react";
-import Visualizer from "Visualizer";
+import CharAdder from "./addChar.jsx";
+import RelAdder from "./addRel.jsx";
+// import Visualizer from "Visualizer";
 // import "./style.scss";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { data: [] };
   }
 
-  getPage() {
-    fetch("http://localhost:3000/")
-      .then(res => {
-        this.setState(state => ({
-          data: JSON.parse(res.body)
-        }));
+  updateData() {
+    fetch("/data", {
+      method: "GET",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    })
+      .then(res => res.json())
+      .then(dataset => {
+        console.log(dataset);
+        this.setState({
+          data: dataset
+        });
       })
+      .then(() => console.log(this.state))
       .catch(err => console.log(err));
   }
 
   componentDidMount() {
-    this.getPage();
+    this.updateData();
   }
+
   render() {
     return (
       <div className="App">
         <h1> my title </h1>
-        <div id="vis">
-          <Visualizer data={this.state.data} />
-        </div>
+        <CharAdder updateData={this.updateData} />
+        <RelAdder updateData={this.updateData} data={this.state.data} />
       </div>
     );
   }

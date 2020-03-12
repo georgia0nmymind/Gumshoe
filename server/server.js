@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.get("/data", (req, res) => {
   //retrieve/update all data route
+  console.log("updating data...");
   let data = { nodes: [], rel: [] };
   let rels = [];
   session
@@ -60,7 +61,7 @@ app.get("/data", (req, res) => {
           end: record._fields[0].segments[0].relationship.end.low
         });
       });
-      session.close();
+      // session.close();
     })
     .then(result => {
       console.log("going into push func");

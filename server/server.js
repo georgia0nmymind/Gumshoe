@@ -18,10 +18,16 @@ const driver = neo4j.driver(
 const session = driver.session();
 
 app.get("/", (req, res) => {
-  //retrieve-all default route
-  const data = { nodes: [], rel: [] };
+  //serve page
+  res.status(200).sendFile(path.resolve(__dirname, "../src/index.html"));
+});
+
+app.get("/data", (req, res) => {
+  //retrieve/update all data route
+  let data = { nodes: [], rel: [] };
+  let rels = [];
   session
-    .run("Match a= ()-->() return a")
+    .run("Match a= ()--() return a")
     .then(result => {
       result.records.forEach(record => {
         // let rel = helper.killUnderscore(
@@ -42,20 +48,33 @@ app.get("/", (req, res) => {
             name: record._fields[0].start.properties.Name,
             occ: record._fields[0].start.properties.Occupation,
             scope: record._fields[0].start.properties.Scope,
-            id: record._fields[0].start.identity.low
+            id: record._fields[0].start.identity.low,
+            sig: record._fields[0].start.properties.sig
           });
         }
-        data.rel.push({
+        rels.push({
           start: record._fields[0].segments[0].relationship.start.low,
+          type: helper.killUnderscore(
+            record._fields[0].segments[0].relationship.type
+          ),
           end: record._fields[0].segments[0].relationship.end.low
         });
       });
       session.close();
     })
+    .then(result => {
+      console.log("going into push func");
+      rels.forEach(rel => {
+        const link = {
+          source: helper.getIndexById(rel.start, data),
+          type: rel.type,
+          target: helper.getIndexById(rel.end, data)
+        };
+        data.rel.push(link);
+      });
+    })
     .catch(err => console.log(err))
-    .then(() => console.log(data));
-  res.status(200).sendFile(path.resolve(__dirname, "../src/index.html"));
-  // res.status(200).sendFile(path.resolve(__dirname, "../client/index.html"));
+    .then(() => res.status(200).json(data));
 });
 
 app.post("/addChar", (req, res) => {

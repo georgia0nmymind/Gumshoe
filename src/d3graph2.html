@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<style>
+  path.link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+  }
+
+  circle {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+
+  text {
+    fill: #000;
+    font: 10px sans-serif;
+    pointer-events: none;
+  }
+</style>
+
+<body>
+  <script>
+
+    // get the data
+    const edges = [
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Howard Spencer"
+      },
+      {
+        "source": "Sewell Endicott",
+        "type": "hired to_represent",
+        "target": "Philip Marlowe"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "friends",
+        "target": "Bernie Ohls"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Eileen Wade"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "friends",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Bernie Ohls",
+        "type": "investigating murder_of",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "friends",
+        "target": "Bernie Ohls"
+      },
+      {
+        "source": "Mendy Menendez",
+        "type": "associates",
+        "target": "Randy Starr"
+      },
+      {
+        "source": "Randy Starr",
+        "type": "army buddies",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Roger Wade",
+        "type": "held prisoner_by",
+        "target": "Dr. Verringer"
+      },
+      {
+        "source": "Mendy Menendez",
+        "type": "former associates",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Sergeant Green",
+        "type": "looking for",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Randy Starr",
+        "type": "army buddies",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Linda Loring",
+        "type": "in laws",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "married to",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Eileen Wade",
+        "type": "former lovers",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "friends",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Candy",
+        "type": "works for",
+        "target": "Eileen Wade"
+      },
+      {
+        "source": "Eileen Wade",
+        "type": "former lovers",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Eileen Wade"
+      },
+      {
+        "source": "Eileen Wade",
+        "type": "married to",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Howard Spencer",
+        "type": "publisher for",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Candy",
+        "type": "works for",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Roger Wade",
+        "type": "held prisoner_by",
+        "target": "Dr. Verringer"
+      },
+      {
+        "source": "Roger Wade",
+        "type": "former lovers",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Eileen Wade",
+        "type": "married to",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Sergeant Green",
+        "type": "investigating murder_of",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Roger Wade",
+        "type": "former lovers",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Bernie Ohls",
+        "type": "investigating murder_of",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "married to",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "daughter of",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "sisters",
+        "target": "Linda Loring"
+      },
+      {
+        "source": "Linda Loring",
+        "type": "in laws",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Linda Loring",
+        "type": "daughter of",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "sisters",
+        "target": "Linda Loring"
+      },
+      {
+        "source": "Sewell Endicott",
+        "type": "hired by",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Linda Loring",
+        "type": "daughter of",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Sylvia Lennox",
+        "type": "daughter of",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Gregorius",
+        "type": "coworkers",
+        "target": "Sergeant Green"
+      },
+      {
+        "source": "Sergeant Green",
+        "type": "looking for",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Sergeant Green",
+        "type": "investigating murder_of",
+        "target": "Sylvia Lennox"
+      },
+      {
+        "source": "Sewell Endicott",
+        "type": "hired by",
+        "target": "Harlan Potter"
+      },
+      {
+        "source": "Sewell Endicott",
+        "type": "hired to_represent",
+        "target": "Philip Marlowe"
+      },
+      {
+        "source": "Chick Agostino",
+        "type": "works for",
+        "target": "Mendy Menendez"
+      },
+      {
+        "source": "Philip Marlowe",
+        "type": "hired by",
+        "target": "Howard Spencer"
+      },
+      {
+        "source": "Howard Spencer",
+        "type": "publisher for",
+        "target": "Roger Wade"
+      },
+      {
+        "source": "Gregorius",
+        "type": "coworkers",
+        "target": "Sergeant Green"
+      },
+      {
+        "source": "Chick Agostino",
+        "type": "works for",
+        "target": "Mendy Menendez"
+      },
+      {
+        "source": "Mendy Menendez",
+        "type": "former associates",
+        "target": "Terry Lennox"
+      },
+      {
+        "source": "Mendy Menendez",
+        "type": "associates",
+        "target": "Randy Starr"
+      },
+      {
+        "source": "Candy",
+        "type": "works for",
+        "target": "Eileen Wade"
+      },
+      {
+        "source": "Candy",
+        "type": "works for",
+        "target": "Roger Wade"
+      }
+    ];
+
+    const nodes = [{
+      "name": "Philip Marlowe",
+      "occ": "Private Eye",
+      "scope": "The Long Goodbye",
+      "id": 0
+    },
+    {
+      "name": "Bernie Ohls",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 1
+    },
+    {
+      "name": "Randy Starr",
+      "occ": "Racketeer",
+      "scope": "The Long Goodbye",
+      "id": 3
+    },
+    {
+      "name": "Dr. Verringer",
+      "occ": "Quack",
+      "scope": "The Long Goodbye",
+      "id": 4
+    },
+    {
+      "name": "Terry Lennox",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 20
+    },
+    {
+      "name": "Eileen Wade",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 21
+    },
+    {
+      "name": "Roger Wade",
+      "occ": "Writer",
+      "scope": "The Long Goodbye",
+      "id": 22
+    },
+    {
+      "name": "Sylvia Lennox",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 23
+    },
+    {
+      "name": "Linda Loring",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 24
+    },
+    {
+      "name": "Harlan Potter",
+      "occ": "Newspaper Magnate",
+      "scope": "The Long Goodbye",
+      "id": 25
+    },
+    {
+      "name": "Sergeant Green",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 26
+    },
+    {
+      "name": "Sewell Endicott",
+      "occ": "Lawyer",
+      "scope": "The Long Goodbye",
+      "id": 27
+    },
+    {
+      "name": "Chick Agostino",
+      "occ": "Bodyguard",
+      "scope": "The Long Goodbye",
+      "id": 28
+    },
+    {
+      "name": "Howard Spencer",
+      "occ": "Publisher",
+      "scope": "The Long Goodbye",
+      "id": 29
+    },
+    {
+      "name": "Gregorius",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 32
+    },
+    {
+      "name": "Mendy Menendez",
+      "occ": "Racketeer",
+      "scope": "The Long Goodbye",
+      "id": 40
+    },
+    {
+      "name": "Candy",
+      "occ": "Butler",
+      "scope": "The Long Goodbye",
+      "id": 41
+    }];
+
+    // Compute the distinct nodes from the links.
+    edges.forEach(function (edge) {
+      edge.source = nodes[edge.source] ||
+        (nodes[edge.source] = { name: edge.source });
+      edge.target = nodes[edge.target] ||
+        (nodes[edge.target] = { name: edge.target });
+      edge.value = +edge.value;
+    });
+
+
+    var width = 960,
+      height = 500;
+
+    var force = d3.layout.force()
+      .nodes(d3.values(nodes))
+      .links(edges)
+      .size([width, height])
+      .linkDistance(150)
+      .charge(-300)
+      .on("tick", tick)
+      .start();
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // build the arrow.
+    svg.append("svg:defs").selectAll("marker")
+      .data(["end"])      // Different link/path types can be defined here
+      .enter().append("svg:marker")    // This section adds in the arrows
+      .attr("id", String)
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 15)
+      .attr("refY", -1.5)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+      .append("svg:path")
+      .attr("d", "M0,-5L10,0L0,5");
+
+    // add the links and the arrows
+    var path = svg.append("svg:g").selectAll("path")
+      .data(force.links())
+      .enter().append("svg:path")
+      //    .attr("class", function(d) { return "link " + d.type; })
+      .attr("class", "link")
+      .attr("marker-end", "url(#end)");
+
+    // define the nodes
+    var node = svg.selectAll(".node")
+      .data(force.nodes())
+      .enter().append("g")
+      .attr("class", "node")
+      .call(force.drag);
+
+    // add the nodes
+    node.append("circle")
+      .attr("r", 5);
+
+    // add the text 
+    node.append("text")
+      .attr("x", 12)
+      .attr("dy", ".35em")
+      .text(function (d) { return d.name; });
+
+    // add the curvy lines
+    function tick() {
+      path.attr("d", function (d) {
+        var dx = d.target.x - d.source.x,
+          dy = d.target.y - d.source.y,
+          dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" +
+          d.source.x + "," +
+          d.source.y + "A" +
+          dr + "," + dr + " 0 0,1 " +
+          d.target.x + "," +
+          d.target.y;
+      });
+
+      node
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+    }
+
+
+
+  </script>
+</body>
+
+</html>

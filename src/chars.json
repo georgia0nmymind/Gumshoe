@@ -1,0 +1,378 @@
+{
+  "nodes": [
+    {
+      "name": "Philip Marlowe",
+      "occ": "Private Eye",
+      "scope": "The Long Goodbye",
+      "id": 0
+    },
+    {
+      "name": "Bernie Ohls",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 1
+    },
+    {
+      "name": "Randy Starr",
+      "occ": "Racketeer",
+      "scope": "The Long Goodbye",
+      "id": 3
+    },
+    {
+      "name": "Dr. Verringer",
+      "occ": "Quack",
+      "scope": "The Long Goodbye",
+      "id": 4
+    },
+    {
+      "name": "Terry Lennox",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 20
+    },
+    {
+      "name": "Eileen Wade",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 21
+    },
+    {
+      "name": "Roger Wade",
+      "occ": "Writer",
+      "scope": "The Long Goodbye",
+      "id": 22
+    },
+    {
+      "name": "Sylvia Lennox",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 23
+    },
+    {
+      "name": "Linda Loring",
+      "occ": "Wealthy",
+      "scope": "The Long Goodbye",
+      "id": 24
+    },
+    {
+      "name": "Harlan Potter",
+      "occ": "Newspaper Magnate",
+      "scope": "The Long Goodbye",
+      "id": 25
+    },
+    {
+      "name": "Sergeant Green",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 26
+    },
+    {
+      "name": "Sewell Endicott",
+      "occ": "Lawyer",
+      "scope": "The Long Goodbye",
+      "id": 27
+    },
+    {
+      "name": "Chick Agostino",
+      "occ": "Bodyguard",
+      "scope": "The Long Goodbye",
+      "id": 28
+    },
+    {
+      "name": "Howard Spencer",
+      "occ": "Publisher",
+      "scope": "The Long Goodbye",
+      "id": 29
+    },
+    {
+      "name": "Gregorius",
+      "occ": "Police",
+      "scope": "The Long Goodbye",
+      "id": 32
+    },
+    {
+      "name": "Mendy Menendez",
+      "occ": "Racketeer",
+      "scope": "The Long Goodbye",
+      "id": 40
+    },
+    {
+      "name": "Candy",
+      "occ": "Butler",
+      "scope": "The Long Goodbye",
+      "id": 41
+    }
+  ],
+  "links": [
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Howard Spencer"
+    },
+    {
+      "source": "Sewell Endicott",
+      "type": "hired to_represent",
+      "target": "Philip Marlowe"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "friends",
+      "target": "Bernie Ohls"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Eileen Wade"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "friends",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Bernie Ohls",
+      "type": "investigating murder_of",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "friends",
+      "target": "Bernie Ohls"
+    },
+    {
+      "source": "Mendy Menendez",
+      "type": "associates",
+      "target": "Randy Starr"
+    },
+    {
+      "source": "Randy Starr",
+      "type": "army buddies",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Roger Wade",
+      "type": "held prisoner_by",
+      "target": "Dr. Verringer"
+    },
+    {
+      "source": "Mendy Menendez",
+      "type": "former associates",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Sergeant Green",
+      "type": "looking for",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Randy Starr",
+      "type": "army buddies",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Linda Loring",
+      "type": "in laws",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "married to",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Eileen Wade",
+      "type": "former lovers",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "friends",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Candy",
+      "type": "works for",
+      "target": "Eileen Wade"
+    },
+    {
+      "source": "Eileen Wade",
+      "type": "former lovers",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Eileen Wade"
+    },
+    {
+      "source": "Eileen Wade",
+      "type": "married to",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Howard Spencer",
+      "type": "publisher for",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Candy",
+      "type": "works for",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Roger Wade",
+      "type": "held prisoner_by",
+      "target": "Dr. Verringer"
+    },
+    {
+      "source": "Roger Wade",
+      "type": "former lovers",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Eileen Wade",
+      "type": "married to",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Sergeant Green",
+      "type": "investigating murder_of",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Roger Wade",
+      "type": "former lovers",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Bernie Ohls",
+      "type": "investigating murder_of",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "married to",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "daughter of",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "sisters",
+      "target": "Linda Loring"
+    },
+    {
+      "source": "Linda Loring",
+      "type": "in laws",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Linda Loring",
+      "type": "daughter of",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "sisters",
+      "target": "Linda Loring"
+    },
+    {
+      "source": "Sewell Endicott",
+      "type": "hired by",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Linda Loring",
+      "type": "daughter of",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Sylvia Lennox",
+      "type": "daughter of",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Gregorius",
+      "type": "coworkers",
+      "target": "Sergeant Green"
+    },
+    {
+      "source": "Sergeant Green",
+      "type": "looking for",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Sergeant Green",
+      "type": "investigating murder_of",
+      "target": "Sylvia Lennox"
+    },
+    {
+      "source": "Sewell Endicott",
+      "type": "hired by",
+      "target": "Harlan Potter"
+    },
+    {
+      "source": "Sewell Endicott",
+      "type": "hired to_represent",
+      "target": "Philip Marlowe"
+    },
+    {
+      "source": "Chick Agostino",
+      "type": "works for",
+      "target": "Mendy Menendez"
+    },
+    {
+      "source": "Philip Marlowe",
+      "type": "hired by",
+      "target": "Howard Spencer"
+    },
+    {
+      "source": "Howard Spencer",
+      "type": "publisher for",
+      "target": "Roger Wade"
+    },
+    {
+      "source": "Gregorius",
+      "type": "coworkers",
+      "target": "Sergeant Green"
+    },
+    {
+      "source": "Chick Agostino",
+      "type": "works for",
+      "target": "Mendy Menendez"
+    },
+    {
+      "source": "Mendy Menendez",
+      "type": "former associates",
+      "target": "Terry Lennox"
+    },
+    {
+      "source": "Mendy Menendez",
+      "type": "associates",
+      "target": "Randy Starr"
+    },
+    {
+      "source": "Candy",
+      "type": "works for",
+      "target": "Eileen Wade"
+    },
+    {
+      "source": "Candy",
+      "type": "works for",
+      "target": "Roger Wade"
+    }
+  ]
+}

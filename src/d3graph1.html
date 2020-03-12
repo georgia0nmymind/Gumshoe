@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Force Layout with labels on edges</title>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    var w = 1900;
+    var h = 800;
+    var linkDistance = 250;
+
+    var colors = d3.scale.category20();
+
+    var dataset = {
+
+      nodes: [
+        {
+          "name": "Philip Marlowe",
+          "occ": "Private Eye",
+          "scope": "The Long Goodbye",
+          "id": 0,
+          "sig": {
+            "low": 20,
+            "high": 0
+          }
+        },
+        {
+          "name": "Bernie Ohls",
+          "occ": "Police",
+          "scope": "The Long Goodbye",
+          "id": 1,
+          "sig": {
+            "low": 5,
+            "high": 0
+          }
+        },
+        {
+          "name": "Randy Starr",
+          "occ": "Racketeer",
+          "scope": "The Long Goodbye",
+          "id": 3,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Dr. Verringer",
+          "occ": "Quack",
+          "scope": "The Long Goodbye",
+          "id": 4,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Terry Lennox",
+          "occ": "Wealthy",
+          "scope": "The Long Goodbye",
+          "id": 20,
+          "sig": {
+            "low": 20,
+            "high": 0
+          }
+        },
+        {
+          "name": "Eileen Wade",
+          "occ": "Wealthy",
+          "scope": "The Long Goodbye",
+          "id": 21,
+          "sig": {
+            "low": 20,
+            "high": 0
+          }
+        },
+        {
+          "name": "Roger Wade",
+          "occ": "Writer",
+          "scope": "The Long Goodbye",
+          "id": 22,
+          "sig": {
+            "low": 20,
+            "high": 0
+          }
+        },
+        {
+          "name": "Sylvia Lennox",
+          "occ": "Wealthy",
+          "scope": "The Long Goodbye",
+          "id": 23,
+          "sig": {
+            "low": 15,
+            "high": 0
+          }
+        },
+        {
+          "name": "Linda Loring",
+          "occ": "Wealthy",
+          "scope": "The Long Goodbye",
+          "id": 24,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Harlan Potter",
+          "occ": "Newspaper Magnate",
+          "scope": "The Long Goodbye",
+          "id": 25,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Sergeant Green",
+          "occ": "Police",
+          "scope": "The Long Goodbye",
+          "id": 26,
+          "sig": {
+            "low": 5,
+            "high": 0
+          }
+        },
+        {
+          "name": "Sewell Endicott",
+          "occ": "Lawyer",
+          "scope": "The Long Goodbye",
+          "id": 27,
+          "sig": {
+            "low": 5,
+            "high": 0
+          }
+        },
+        {
+          "name": "Chick Agostino",
+          "occ": "Bodyguard",
+          "scope": "The Long Goodbye",
+          "id": 28,
+          "sig": {
+            "low": 5,
+            "high": 0
+          }
+        },
+        {
+          "name": "Howard Spencer",
+          "occ": "Publisher",
+          "scope": "The Long Goodbye",
+          "id": 29,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Gregorius",
+          "occ": "Police",
+          "scope": "The Long Goodbye",
+          "id": 32
+        },
+        {
+          "name": "Mendy Menendez",
+          "occ": "Racketeer",
+          "scope": "The Long Goodbye",
+          "id": 40,
+          "sig": {
+            "low": 10,
+            "high": 0
+          }
+        },
+        {
+          "name": "Candy",
+          "occ": "Butler",
+          "scope": "The Long Goodbye",
+          "id": 41,
+          "sig": {
+            "low": 5,
+            "high": 0
+          }
+        }
+      ],
+      edges: [
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 6
+        },
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 13
+        },
+        {
+          "source": 11,
+          "type": "hired to_represent",
+          "target": 0
+        },
+        {
+          "source": 0,
+          "type": "friends",
+          "target": 1
+        },
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 5
+        },
+        {
+          "source": 0,
+          "type": "friends",
+          "target": 4
+        },
+        {
+          "source": 1,
+          "type": "investigating murder_of",
+          "target": 7
+        },
+        {
+          "source": 0,
+          "type": "friends",
+          "target": 1
+        },
+        {
+          "source": 15,
+          "type": "associates",
+          "target": 2
+        },
+        {
+          "source": 2,
+          "type": "army buddies",
+          "target": 4
+        },
+        {
+          "source": 6,
+          "type": "held prisoner_by",
+          "target": 3
+        },
+        {
+          "source": 15,
+          "type": "former associates",
+          "target": 4
+        },
+        {
+          "source": 10,
+          "type": "looking for",
+          "target": 4
+        },
+        {
+          "source": 2,
+          "type": "army buddies",
+          "target": 4
+        },
+        {
+          "source": 8,
+          "type": "in laws",
+          "target": 4
+        },
+        {
+          "source": 7,
+          "type": "married to",
+          "target": 4
+        },
+        {
+          "source": 5,
+          "type": "former lovers",
+          "target": 4
+        },
+        {
+          "source": 0,
+          "type": "friends",
+          "target": 4
+        },
+        {
+          "source": 16,
+          "type": "works for",
+          "target": 5
+        },
+        {
+          "source": 5,
+          "type": "former lovers",
+          "target": 4
+        },
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 5
+        },
+        {
+          "source": 5,
+          "type": "married to",
+          "target": 6
+        },
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 6
+        },
+        {
+          "source": 13,
+          "type": "publisher for",
+          "target": 6
+        },
+        {
+          "source": 16,
+          "type": "works for",
+          "target": 6
+        },
+        {
+          "source": 6,
+          "type": "held prisoner_by",
+          "target": 3
+        },
+        {
+          "source": 6,
+          "type": "former lovers",
+          "target": 7
+        },
+        {
+          "source": 5,
+          "type": "married to",
+          "target": 6
+        },
+        {
+          "source": 10,
+          "type": "investigating murder_of",
+          "target": 7
+        },
+        {
+          "source": 6,
+          "type": "former lovers",
+          "target": 7
+        },
+        {
+          "source": 1,
+          "type": "investigating murder_of",
+          "target": 7
+        },
+        {
+          "source": 7,
+          "type": "married to",
+          "target": 4
+        },
+        {
+          "source": 7,
+          "type": "daughter of",
+          "target": 9
+        },
+        {
+          "source": 7,
+          "type": "sisters",
+          "target": 8
+        },
+        {
+          "source": 8,
+          "type": "in laws",
+          "target": 4
+        },
+        {
+          "source": 8,
+          "type": "daughter of",
+          "target": 9
+        },
+        {
+          "source": 7,
+          "type": "sisters",
+          "target": 8
+        },
+        {
+          "source": 11,
+          "type": "hired by",
+          "target": 9
+        },
+        {
+          "source": 8,
+          "type": "daughter of",
+          "target": 9
+        },
+        {
+          "source": 7,
+          "type": "daughter of",
+          "target": 9
+        },
+        {
+          "source": 14,
+          "type": "coworkers",
+          "target": 10
+        },
+        {
+          "source": 10,
+          "type": "looking for",
+          "target": 4
+        },
+        {
+          "source": 10,
+          "type": "investigating murder_of",
+          "target": 7
+        },
+        {
+          "source": 11,
+          "type": "hired by",
+          "target": 9
+        },
+        {
+          "source": 11,
+          "type": "hired to_represent",
+          "target": 0
+        },
+        {
+          "source": 12,
+          "type": "works for",
+          "target": 15
+        },
+        {
+          "source": 0,
+          "type": "hired by",
+          "target": 13
+        },
+        {
+          "source": 13,
+          "type": "publisher for",
+          "target": 6
+        },
+        {
+          "source": 14,
+          "type": "coworkers",
+          "target": 10
+        },
+        {
+          "source": 12,
+          "type": "works for",
+          "target": 15
+        },
+        {
+          "source": 15,
+          "type": "former associates",
+          "target": 4
+        },
+        {
+          "source": 15,
+          "type": "associates",
+          "target": 2
+        },
+        {
+          "source": 16,
+          "type": "works for",
+          "target": 5
+        },
+        {
+          "source": 16,
+          "type": "works for",
+          "target": 6
+        }
+      ]
+    };
+
+
+    var svg = d3.select("body").append("svg").attr({ "width": w, "height": h });
+
+
+    svg.append("svg:defs").selectAll("marker")
+      .data(["end"])      // Different link/path types can be defined here
+      .enter().append("svg:marker")    // This section adds in the arrows
+      .attr("id", "arrowhead")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 15)
+      .attr("refY", -1.5)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+      .append("svg:path")
+      .attr("d", "M0,-5L10,0L0,5");
+
+    var force = d3.layout.force()
+      .nodes(dataset.nodes)
+      .links(dataset.edges)
+      .size([w, h])
+      .linkDistance([linkDistance])
+      .linkStrength(0.5)
+      .charge([-5000])
+      .theta(0.8)
+      .gravity(0.1)
+      .start();
+
+
+
+    var edges = svg.selectAll("line")
+      .data(dataset.edges)
+      .enter()
+      .append("line")
+      .attr("id", function (d, i) { return 'edge' + i })
+      .attr('marker-end', 'url(#arrowhead)')
+      .style("stroke", "#ccc")
+      .style("pointer-events", "none");
+
+    var nodes = svg.selectAll("circle")
+      .data(dataset.nodes)
+      .enter()
+      .append("circle")
+      .attr({ "r": 10 })
+      .style("fill", function (d, i) { return colors(i); })
+      .call(force.drag)
+
+
+    var nodelabels = svg.selectAll(".nodelabel")
+      .data(dataset.nodes)
+      .enter()
+      .append("text")
+      .attr({
+        "x": function (d) { return d.x; },
+        "y": function (d) { return d.y; },
+        "class": "nodelabel",
+        "stroke": "black"
+      })
+      .text(function (d) { return d.name; });
+
+    var edgepaths = svg.selectAll(".edgepath")
+      .data(dataset.edges)
+      .enter()
+      .append('path')
+      .attr({
+        'd': function (d) { return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y },
+        'class': 'edgepath',
+        'fill-opacity': 0,
+        'stroke-opacity': 0,
+        'fill': 'blue',
+        'stroke': 'red',
+        'id': function (d, i) { return 'edgepath' + i }
+      })
+      .style("pointer-events", "none");
+
+    var edgelabels = svg.selectAll(".edgelabel")
+      .data(dataset.edges)
+      .enter()
+      .append('text')
+      .style("pointer-events", "none")
+      .attr({
+        'class': 'edgelabel',
+        'id': function (d, i) { return 'edgelabel' + d },
+        'dx': 80,
+        'dy': 0,
+        'font-size': 18,
+        'fill': '#303030'
+      });
+
+    edgelabels.append('textPath')
+      .attr('xlink:href', function (d, i) { return '#edgepath' + i })
+      .style("pointer-events", "none")
+      .text(function (d, i) { return '' + d.type });
+
+
+    force.on("tick", function () {
+
+      edges.attr({
+        "x1": function (d) { return d.source.x; },
+        "y1": function (d) { return d.source.y; },
+        "x2": function (d) { return d.target.x; },
+        "y2": function (d) { return d.target.y; }
+      });
+
+      nodes.attr({
+        "cx": function (d) { return d.x; },
+        "cy": function (d) { return d.y; }
+      });
+
+      nodelabels.attr("x", function (d) { return d.x; })
+        .attr("y", function (d) { return d.y; });
+
+      edgepaths.attr('d', function (d) {
+        var path = 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+        //console.log(d)
+        return path
+      });
+
+      edgelabels.attr('transform', function (d, i) {
+        if (d.target.x < d.source.x) {
+          bbox = this.getBBox();
+          rx = bbox.x + bbox.width / 2;
+          ry = bbox.y + bbox.height / 2;
+          return 'rotate(180 ' + rx + ' ' + ry + ')';
+        }
+        else {
+          return 'rotate(0)';
+        }
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>

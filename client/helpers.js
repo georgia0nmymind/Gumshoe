@@ -7,6 +7,26 @@ function killUnderscore(string = "") {
   return result.toLowerCase();
 }
 
+function getNameById(id, data) {
+  for (let i = 0; i < data.nodes.length; i++) {
+    const current = data.nodes[i];
+    if (id === current.id) {
+      return current.name;
+    }
+  }
+}
+
+function getIndexById(id, data) {
+  for (let i = 0; i < data.nodes.length; i++) {
+    const current = data.nodes[i];
+    if (id === current.id) {
+      return i;
+    }
+  }
+}
+
 module.exports = {
-  killUnderscore: killUnderscore
+  killUnderscore: killUnderscore,
+  getNameById: getNameById,
+  getIndexById: getIndexById
 };

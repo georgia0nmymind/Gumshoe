@@ -8,9 +8,10 @@ module.exports = {
     path: path.join(__dirname, "build"),
     filename: "bundle.js"
   },
-  mode: "production",
+  mode: "development",
   devServer: {
     // contentBase: "/src/",
+    hot: true,
     publicPath: "/build",
     proxy: {
       "/": "http://localhost:3000"
@@ -44,13 +45,6 @@ module.exports = {
       }
     ]
   }
-  // plugins: [
-  //   new HtmlWebPackPlugin({
-  //     template: "./src/index.html",
-  //     filename: "./index.html"
-  //   }),
-  //   new CopyPlugin([{ from: "./src/style.scss" }])
-  // ]
 };
 
 // const path = require("path");

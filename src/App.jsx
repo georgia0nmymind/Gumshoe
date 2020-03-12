@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Visualizer from "Visualizer";
+// import Visualizer from "./Visualizer.jsx";
 // import "./style.scss";
 
 class App extends Component {
@@ -8,8 +8,18 @@ class App extends Component {
     this.state = {};
   }
 
-  getPage() {
-    fetch("http://localhost:3000/")
+  async getPage() {
+    const response = await fetch("/express_backend");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  }
+
+  getData() {
+    fetch("http://localhost:3000/data")
       .then(res => {
         this.setState(state => ({
           data: JSON.parse(res.body)
@@ -19,14 +29,16 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("mounted");
     this.getPage();
+    this.getData();
   }
   render() {
     return (
       <div className="App">
         <h1> my title </h1>
         <div id="vis">
-          <Visualizer data={this.state.data} />
+          <h1>visualizer goes here</h1>
         </div>
       </div>
     );

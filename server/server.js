@@ -49,7 +49,7 @@ app.get("/data", (req, res) => {
             occ: record._fields[0].start.properties.Occupation,
             scope: record._fields[0].start.properties.Scope,
             id: record._fields[0].start.identity.low,
-            sig: record._fields[0].start.properties.sig
+            sig: record._fields[0].start.properties.sig.low
           });
         }
         rels.push({

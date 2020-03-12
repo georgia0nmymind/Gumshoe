@@ -6,6 +6,9 @@
   <title>Force Layout with labels on edges</title>
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <style type="text/css">
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
   </style>
 </head>
 
@@ -14,8 +17,8 @@
   <script type="text/javascript">
 
     var w = 1900;
-    var h = 800;
-    var linkDistance = 250;
+    var h = 1000;
+    var linkDistance = 275;
 
     var colors = d3.scale.category20();
 
@@ -27,166 +30,119 @@
           "occ": "Private Eye",
           "scope": "The Long Goodbye",
           "id": 0,
-          "sig": {
-            "low": 20,
-            "high": 0
-          }
+          "sig": 20
         },
         {
           "name": "Bernie Ohls",
           "occ": "Police",
           "scope": "The Long Goodbye",
           "id": 1,
-          "sig": {
-            "low": 5,
-            "high": 0
-          }
+          "sig": 5
         },
         {
           "name": "Randy Starr",
           "occ": "Racketeer",
           "scope": "The Long Goodbye",
           "id": 3,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Dr. Verringer",
           "occ": "Quack",
           "scope": "The Long Goodbye",
           "id": 4,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Terry Lennox",
           "occ": "Wealthy",
           "scope": "The Long Goodbye",
           "id": 20,
-          "sig": {
-            "low": 20,
-            "high": 0
-          }
+          "sig": 20
         },
         {
           "name": "Eileen Wade",
           "occ": "Wealthy",
           "scope": "The Long Goodbye",
           "id": 21,
-          "sig": {
-            "low": 20,
-            "high": 0
-          }
+          "sig": 20
         },
         {
           "name": "Roger Wade",
           "occ": "Writer",
           "scope": "The Long Goodbye",
           "id": 22,
-          "sig": {
-            "low": 20,
-            "high": 0
-          }
+          "sig": 20
         },
         {
           "name": "Sylvia Lennox",
           "occ": "Wealthy",
           "scope": "The Long Goodbye",
           "id": 23,
-          "sig": {
-            "low": 15,
-            "high": 0
-          }
+          "sig": 15
         },
         {
           "name": "Linda Loring",
           "occ": "Wealthy",
           "scope": "The Long Goodbye",
           "id": 24,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Harlan Potter",
           "occ": "Newspaper Magnate",
           "scope": "The Long Goodbye",
           "id": 25,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Sergeant Green",
           "occ": "Police",
           "scope": "The Long Goodbye",
           "id": 26,
-          "sig": {
-            "low": 5,
-            "high": 0
-          }
+          "sig": 5
         },
         {
           "name": "Sewell Endicott",
           "occ": "Lawyer",
           "scope": "The Long Goodbye",
           "id": 27,
-          "sig": {
-            "low": 5,
-            "high": 0
-          }
+          "sig": 5
         },
         {
           "name": "Chick Agostino",
           "occ": "Bodyguard",
           "scope": "The Long Goodbye",
           "id": 28,
-          "sig": {
-            "low": 5,
-            "high": 0
-          }
+          "sig": 5
         },
         {
           "name": "Howard Spencer",
           "occ": "Publisher",
           "scope": "The Long Goodbye",
           "id": 29,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Gregorius",
           "occ": "Police",
           "scope": "The Long Goodbye",
-          "id": 32
+          "id": 32,
+          "sig": 5
         },
         {
           "name": "Mendy Menendez",
           "occ": "Racketeer",
           "scope": "The Long Goodbye",
           "id": 40,
-          "sig": {
-            "low": 10,
-            "high": 0
-          }
+          "sig": 10
         },
         {
           "name": "Candy",
           "occ": "Butler",
           "scope": "The Long Goodbye",
           "id": 41,
-          "sig": {
-            "low": 5,
-            "high": 0
-          }
+          "sig": 5
         }
       ],
       edges: [
@@ -466,20 +422,6 @@
 
     var svg = d3.select("body").append("svg").attr({ "width": w, "height": h });
 
-
-    svg.append("svg:defs").selectAll("marker")
-      .data(["end"])      // Different link/path types can be defined here
-      .enter().append("svg:marker")    // This section adds in the arrows
-      .attr("id", "arrowhead")
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", -1.5)
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("orient", "auto")
-      .append("svg:path")
-      .attr("d", "M0,-5L10,0L0,5");
-
     var force = d3.layout.force()
       .nodes(dataset.nodes)
       .links(dataset.edges)
@@ -491,22 +433,40 @@
       .gravity(0.1)
       .start();
 
-
+    svg.append('defs').append('marker')
+      .attr("id", 'arrowhead')
+      .attr('viewBox', '-0 -5 10 10') //the bound of the SVG viewport for the current SVG fragment. defines a coordinate system 10 wide and 10 high starting on (0,-5)
+      .attr('refX', 50) // x coordinate for the reference point of the marker. If circle is bigger, this need to be bigger.
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .attr('markerWidth', 18)
+      .attr('markerHeight', 18)
+      .attr('xoverflow', 'visible')
+      .append('svg:path')
+      .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+      .attr('fill', '#999')
+      .style('stroke', 'none');
 
     var edges = svg.selectAll("line")
       .data(dataset.edges)
       .enter()
       .append("line")
       .attr("id", function (d, i) { return 'edge' + i })
-      .attr('marker-end', 'url(#arrowhead)')
       .style("stroke", "#ccc")
-      .style("pointer-events", "none");
+      .style("pointer-events", "none")
+      .attr('marker-end', 'url(#arrowhead)');
+
+
 
     var nodes = svg.selectAll("circle")
       .data(dataset.nodes)
       .enter()
       .append("circle")
-      .attr({ "r": 10 })
+      .attr("r", function (d, i) {
+        if (d.sig === undefined) {
+          return 20;
+        } else { return d.sig * 3 }
+      })
       .style("fill", function (d, i) { return colors(i); })
       .call(force.drag)
 
